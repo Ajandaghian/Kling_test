@@ -66,7 +66,7 @@ def save_video(video_url):
 def main():
     # Set page config
     st.set_page_config(
-        page_title="Kling AI Interface",
+        page_title="Jandaghian Ai",
         layout="wide"
     )
 
@@ -75,14 +75,13 @@ def main():
     
     prompt = st.sidebar.text_area(
         "Prompt",
-        "Reflections in crystal mirrors, rainbow light, geometric world"
+        "Your prompt goes here"
     )
     
-    duration = st.sidebar.slider(
+    duration = st.sidebar.selectbox(
         "Duration",
-        min_value=1,
-        max_value=10,
-        value=5
+        options=[5, 10],
+        index=0
     )
     
     cfg_scale = st.sidebar.slider(
@@ -106,13 +105,11 @@ def main():
             start_image_url = image_to_base64(image)
         except Exception as e:
             st.sidebar.error(f"Error processing image: {e}")
-    else:
-        # Default image URL as fallback
-        start_image_url = "https://replicate.delivery/pbxt/MNRLOqN0ASEzIG3YPuv9R1JSVGsSOQQzE3rgtVD9Qk230Lgt/image_fx_%20%285%29.jpg"
+
     
     aspect_ratio = st.sidebar.selectbox(
         "Aspect Ratio",
-        ["16:9", "4:3", "1:1"]
+        ["16:9", "9:16", "1:1"]
     )
     
     negative_prompt = st.sidebar.text_area(
@@ -121,7 +118,7 @@ def main():
     )
 
     # Main content area
-    st.title("Kling AI Generator")
+    st.title("Kling AI Generator :D")
 
     if st.sidebar.button("Generate"):
         if not uploaded_file and start_image_url == "":
