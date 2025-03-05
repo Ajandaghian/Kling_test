@@ -171,8 +171,8 @@ def main():
                     if image.mode == 'RGBA':
                         image = image.convert('RGB')
                     
-                    # Display the preview
-                    st.image(image, caption="Preview", use_container_width=True)
+                    # Display the preview - removed use_container_width
+                    st.image(image, caption="Preview", width=300)  # Fixed width instead
                     
                     # Convert to base64
                     start_image_url = image_to_base64(image)
