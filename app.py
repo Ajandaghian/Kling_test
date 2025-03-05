@@ -160,10 +160,25 @@ def main():
                 help="Upload a clear, high-quality image to start with"
             )
             
-            if uploaded_file:
-                image = Image.open(uploaded_file)
-                st.image(image, caption="Preview", use_container_width=True)
-                start_image_url = image_to_base64(image)
+            start_image_url = None
+            if uploaded_file is not None:
+                try:
+                    # Convert the uploaded file to bytes
+                    image_bytes = uploaded_file.getvalue()
+                    image = Image.open(BytesIO(image_bytes))
+                    
+                    # Convert image to RGB if it's in RGBA mode
+                    if image.mode == 'RGBA':
+                        image = image.convert('RGB')
+                    
+                    # Display the preview
+                    st.image(image, caption="Preview", use_container_width=True)
+                    
+                    # Convert to base64
+                    start_image_url = image_to_base64(image)
+                except Exception as e:
+                    st.error(f"Error processing image: {str(e)}")
+                    return
             
             prompt = st.text_area(
                 "✨ Prompt",
