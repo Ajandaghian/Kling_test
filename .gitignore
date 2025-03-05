@@ -1,3 +1,5 @@
 .env
 .streamlit/secrets.toml
-*.toml 
+*.toml .env
+./generated_videos
+.streamlit
