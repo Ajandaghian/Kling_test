@@ -9,17 +9,19 @@ import base64
 import tempfile
 import datetime
 
-# Load environment variables from .env file in development
-if os.path.exists(".env"):
-    load_dotenv()
+# Load environment variables from .env file for local development
+load_dotenv()
 
-# Get API token from environment
-REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
-if not REPLICATE_API_TOKEN:
+# Try to get the token from either Streamlit secrets or environment variables
+replicate_api_token = os.getenv('REPLICATE_API_TOKEN') or st.secrets.get('REPLICATE_API_TOKEN')
+
+if not replicate_api_token:
     raise ValueError("No REPLICATE_API_TOKEN found in environment")
 
-# Modify the SAVE_DIR logic
-if os.getenv("STREAMLIT_SHARING") or os.getenv("RAILWAY_STATIC_URL"):
+os.environ['REPLICATE_API_TOKEN'] = replicate_api_token
+
+# Create a directory for saving videos if it doesn't exist
+if os.getenv("STREAMLIT_SHARING"):
     # Use temporary directory for cloud deployment
     SAVE_DIR = tempfile.mkdtemp()
 else:

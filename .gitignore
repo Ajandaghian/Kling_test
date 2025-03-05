@@ -1,4 +1,0 @@
-.env
-generated_videos/
-__pycache__/
-.streamlit/secrets.toml 
