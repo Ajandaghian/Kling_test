@@ -1,5 +1,12 @@
+# Environment variables and secrets
 .env
+.env.*
+.streamlit/
 .streamlit/secrets.toml
-*.toml .env
-./generated_videos
-.streamlit
+
+# Generated content
+generated_videos/
+
+# Other
+*.pyc
+__pycache__/
